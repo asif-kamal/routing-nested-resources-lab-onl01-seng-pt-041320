@@ -1,7 +1,8 @@
+require 'pry'
 class SongsController < ApplicationController
   def index
     if params[:artist_id]
-      if Artist.find(params[:artist_id])
+      if Artist.find_by(id: params[:artist_id])
         @songs = Artist.find(params[:artist_id]).songs
       else
         redirect_to artists_path 
@@ -13,13 +14,18 @@ class SongsController < ApplicationController
 end
  
   def show
-    if params[:id]
-      @song = Song.find(params[:id])
-    else
-      flash[:alert] = "Song not found."
-      redirect_to artist_songs_path(@song)
-    end
+    #binding.pry
+      if params[:artist_id]
+        if Song.find_by(id: params[:id])
+        @song = Song.find(params[:id])
+        else
+        redirect_to artist_songs_path(@artist)
+        flash[:alert] = "Song not found."
+        end
+      end
+    
   end
+
 
 
   def new

@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   resources :songs
 
   resources :artists, only: [:show] do
-    # nested resource for posts
+    
     resources :songs, only: [:show, :index]
   end
  
-  resources :posts, only: [:index, :show, :new, :create, :edit, :update]
+  resources :songs, only: [:index, :show, :new, :create, :edit, :update]
  
-  root 'posts#index'
+  root 'songs#index'
 end
